@@ -2,11 +2,13 @@ import Sidebar from "../components/sidebar"
 import PopUpInfoPage from "./PopUpInfoPage";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
+import exampleDb from './records.json'
 
 function Sales() {
 
   const [Open, setOpen] = useState(false)
-        
+  
+  const [id, setId] = useState("")
   return (
     <>
     <div className="h-screen w-screen ">
@@ -57,20 +59,26 @@ function Sales() {
                     <th className="p-2.5 border-black border-1">Status</th>
                     <th className="p-2.5 border-black border-1">  Edit</th>
                   </tr>
+                  { exampleDb.map( d => { return (
                   <tr >
-                    <td className="p-2.5 border-black border-1">Jod Amor PARBA AYAYAYA ENANAN SHIORIN</td>
-                    <td className="p-2.5 border-black border-1">Jinx</td>
-                    <td className="p-2.5 border-black border-1">STI Fairview</td>
-                    <td className="p-2.5 border-black border-1">#1234567890</td>
-                    <td className="p-2.5 border-black border-1">4 / 4 / 25</td>
-                    <td className="p-2.5 border-black border-1">Delivered</td>
-                    <td className="p-2.5 border-black border-1"><FaEdit className="mx-auto cursor-pointer w-[30px] h-[30px] " onClick={() => setOpen(true) }/></td>
+                    <td className="p-2.5 border-black border-1"> {d.name} </td>
+                    <td className="p-2.5 border-black border-1"> {d.order} </td>
+                    <td className="p-2.5 border-black border-1"> {d.address} </td>
+                    <td className="p-2.5 border-black border-1"> {d.refNumber} </td>
+                    <td className="p-2.5 border-black border-1"> {d.date} </td>
+                    <td className="p-2.5 border-black border-1"> {d.status} </td>
+                    <td className="p-2.5 border-black border-1"><FaEdit className="mx-auto cursor-pointer w-[30px] h-[30px] " onClick={() => 
+                      { 
+                        setOpen(true) 
+                        setId(d.id)
+                      }}/></td>
                   </tr>
+                  )})}
                 </table>
               </div>
               
 
-              <PopUpInfoPage open={Open} onClose={() => setOpen(false)}> </PopUpInfoPage>
+              <PopUpInfoPage open={Open} id={id} onClose={() => setOpen(false)}> </PopUpInfoPage>
 
             </div>
         </div>

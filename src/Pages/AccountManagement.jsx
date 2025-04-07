@@ -2,10 +2,15 @@ import Sidebar from '../components/sidebar.jsx'
 import UserEditPopUp from './UserEditPopUp.jsx';
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
+import exampleDb from './records.json'
+
 
 function AccountManagement() {
 
-  const [Open, setOpen] = useState(false) 
+  const [Open, setOpen] = useState(false) //Modal
+  const [Id, setId] = useState(0)
+  
+
 
   return (
     <>
@@ -43,6 +48,7 @@ function AccountManagement() {
               </div>    
             </div>
             <div className="flex justify-center items-center pt-10 ">
+
               <table className="border-1 border-black w-7xl text-center">
                <tr>
                   <th className="p-2.5 border-black border-1">Name</th>
@@ -51,17 +57,30 @@ function AccountManagement() {
                   <th className="p-2.5 border-black border-1">Role</th>
                   <th className="p-2.5 border-black border-1">Edit</th>
                 </tr>
-                <tr >
-                  <td className="p-2.5 border-black border-1">Jod Amor PARBA AYAYAYA ENANAN SHIORIN</td>
-                  <td className="p-2.5 border-black border-1">STI Fairview</td>
-                  <td className="p-2.5 border-black border-1">#1234567890</td>
-                  <td className="p-2.5 border-black border-1">Admin</td>
-                  <td className="p-2.5 border-black border-1"><FaEdit className="mx-auto cursor-pointer w-[30px] h-[30px] " onClick={() => setOpen(true) }/></td>
-                </tr>
+
+                { exampleDb.map( d => { return (
+                  <tr>
+                    <td className="p-2.5 border-black border-1"> {d.name} </td>
+                    <td className="p-2.5 border-black border-1"> {d.address} </td>
+                    <td className="p-2.5 border-black border-1"> {d.contactNum} </td>
+                    <td className="p-2.5 border-black border-1"> {d.role} </td>
+                    <td className="p-2.5 border-black border-1">
+                    <FaEdit className="mx-auto cursor-pointer w-[30px] h-[30px] " onClick={() => 
+                    {
+                      setOpen(true)
+                      setId(d.id)
+                    }
+                     }/>
+                    </td>
+                  </tr>
+                )})
+               
+                } 
               </table>
             </div>
 
-            <UserEditPopUp open={Open} onClose={() => setOpen(false)}/> 
+            <UserEditPopUp open={Open} id={Id} onClose={() => setOpen(false)} />
+          
 
         </div>        
     </div>
